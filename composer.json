@@ -1,0 +1,8 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Parser\\Classes\\": "classes/",
+            "Parser\\Components\\": "components/"
+        }
+    }
+}
