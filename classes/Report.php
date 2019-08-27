@@ -20,6 +20,10 @@ class Report
   {
     echo "\nНа домене находится \033[31m{$count}\033[0m изображений. \n";
   }
+  
+  public static function showUniqueImagesQuantity($count) {
+    echo "\nИз них уникальных \033[31m" .count($count) ."\033[0m изображений. \n";
+  }
 
   public static function showPeportFile($filename)
   {

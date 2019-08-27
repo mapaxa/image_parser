@@ -76,4 +76,12 @@ class Image implements Tag
     return $result->fetchColumn();
   }
 
+  public static function getUniqueImagesByUrl(int $urlId)
+  {
+    $db = Db::getConnection();
+    $result = $db->prepare("SELECT DISTINCT `images`.`name` FROM `images` INNER JOIN `pages` ON `images`.`page_id`=`pages`.`id` WHERE `pages`.`url_id`={$urlId}");
+    $result->execute();
+    return $result->fetchAll(\PDO::FETCH_NUM);
+  }
+
 }

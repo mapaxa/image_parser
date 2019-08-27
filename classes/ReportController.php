@@ -12,9 +12,10 @@ class ReportController
   {
     $homeUrl = Url::getUrlDomain(Url::prepareDomain($domain));
     $url = Url::getUrl($homeUrl);
-    Report::showDomain($homeUrl);
+    Report::showDomain($homeUrl);    
     Report::showPagesQuantitiy(Page::countPagesByUrlId($url['id']));
     Report::showImagesQuantitiy(Image::getCountImagesByUrl($url['id']));
+    Report::showUniqueImagesQuantity(Image::getUniqueImagesByUrl($url['id']));
     Report::showPeportFile($url['csv']);
   }
 
