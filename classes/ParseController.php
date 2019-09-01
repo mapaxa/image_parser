@@ -22,8 +22,10 @@ Class ParseController
       echo "\n" . HOST . 'files/' . $csv->getFileName() . "\n\n";
     } else {
       $page = Page::getUncheckedPageByUrlId($lastUrlId);
-      $str = Parse::getPageContent($preparedDomain . $page['path']);
-      $links = Page::getLinks($str);
+      if (!$str = Parse::getPageContent($preparedDomain . $page['path'], " Could not resolve host: ")) {
+        die;
+      }
+        $links = Page::getLinks($str);
 
       $imgSrcs = $this->tag->getData($str);
 
@@ -42,8 +44,8 @@ Class ParseController
       $links = Page::excludeArray($links);
       $links = Page::removeDuplicates($links);
       $links = Page::preparePaths($links);
-      
-      
+
+
       $links = Page::removeExistingPages($links, $lastUrlId);
       foreach ($links as $link) {
         if (!empty($links)) {
@@ -80,7 +82,7 @@ Class ParseController
     $csv->writeHeader($csv);
     $this->recursiveParseAndSave($preparedDomain, $lastUrlId, $csv, 0, MAX_ITERATIONS_DEFAULT);
     $seconds = time() - $start;
-    echo 'Выполнение заняло ' . $seconds ." секунд.\n";
+    echo 'Выполнение заняло ' . $seconds . " секунд.\n";
   }
 
 }
